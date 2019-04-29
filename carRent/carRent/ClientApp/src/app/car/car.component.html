@@ -1,0 +1,95 @@
+<br />
+<h3><p align="center"><span class='fas fa-car'></span></p></h3>
+<br />
+<!--Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавление автомобиля</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" [formGroup]="formData" (ngSubmit)="addCar()">
+                    <div class="form-group">
+                        <label for="brand" class="col-sm-4 control-label">Марка:</label>
+                        <input type="text" class="form-control" name="brand" formControlName="brand" placeholder=" Введите марку" />
+                        <div *ngIf="!formData.get('brand').valid && formData.get('brand').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте марку!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="model" class="col-sm-4 control-label">Модель:</label>
+                        <input type="text" class="form-control" name="model" formControlName="model" placeholder="Введите модель" />
+                        <div *ngIf="!formData.get('model').valid && formData.get('model').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте модель!
+                            -
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="klas" class="col-sm-4 control-label">Класс:</label>
+                        <select  class="form-control" name="klas" formControlName="klas" title="Выберете класс авто">
+                            <option >A</option>
+                            <option >B</option>
+                            <option >C</option>
+                            <option >D</option>
+                            <option >E</option>
+                            <option >F</option>
+                            <option >J</option>
+                            <option >M</option>
+                            <option >S</option>
+                        </select>
+                        <div *ngIf="!formData.get('klas').valid && formData.get('klas').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте класс!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="year" class="col-sm-4 control-label">Год авто:</label>
+                        <input type="text" class="form-control" name="year" bsDatepicker [bsConfig]="{dateInputFormat:'YYYY', minMode:'year'}" [minDate]="minDate" [maxDate]="maxDate" placeholder="Введите год" formControlName="year" />
+                        <div *ngIf="!formData.get('year').valid && formData.get('year').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте год и/или придерживайтесь диапазона годов [1950 - текущий год]!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="numb" class="col-sm-4 control-label"> Номер авто:</label>
+                        <input type="text" class="form-control" name="numb" placeholder="Введите номер" formControlName="numb" />
+                        <div *ngIf="!formData.get('numb').valid && formData.get('numb').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте номер!
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Отмена</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<kendo-grid [kendoGridBinding]="CarsList"
+            [pageSize]="10"
+            [pageable]="true"
+            [sortable]="true"
+            [filterable]="true"
+            [height]="500">
+    <kendo-grid-column field="brand" title="Марка" width="145">
+    </kendo-grid-column>
+    <kendo-grid-column field="model" title="Модель" width="145">
+    </kendo-grid-column>
+    <kendo-grid-column field="klas" title="Класс" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="year" title="Год" width="90" filter="numeric">
+    </kendo-grid-column>
+    <kendo-grid-column field="numb" title="Номер" width="100">
+    </kendo-grid-column>
+</kendo-grid>
+<br />
+<p align="center"><button kendoButton [primary]="true" data-toggle="modal" data-target="#exampleModal"><span class="fas fa-car">&nbsp;</span>Добавить </button></p>

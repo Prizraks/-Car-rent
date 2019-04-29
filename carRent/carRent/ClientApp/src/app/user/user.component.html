@@ -1,0 +1,78 @@
+<br />
+<h3><p align="center"><span class='fas fa-users'></span></p></h3>
+<br />
+<!--Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавление пользователя</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" [formGroup]="formData" (ngSubmit)="addUser()">
+                    <div class="form-group">
+                        <label for="firstName" class="col-sm-4 control-label">Имя:</label>
+                        <input type="text" class="form-control" name="firstName" formControlName="firstName" placeholder=" Введите имя" />
+                        <div *ngIf="!formData.get('firstName').valid && formData.get('firstName').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте Имя!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName" class="col-sm-4 control-label">Фамилия:</label>
+                        <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Введите фамилию" />
+                        <div *ngIf="!formData.get('lastName').valid && formData.get('lastName').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте Фамилию!
+                            -
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob" class="col-sm-4 control-label">Дата рождения:</label>
+                        <input type="text" placeholder=" Выбирете дату рождения" class="form-control" bsDatepicker name="dob" formControlName="dob" />
+                        <div *ngIf="!formData.get('dob').valid && formData.get('dob').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте дату!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="numbDL" class="col-sm-4 control-label">Номер вод. уд.:</label>
+                        <input type="text" class="form-control" name="numbDL" placeholder="Введите номер водительского удостоверения" formControlName="numbDL" />
+                        <div *ngIf="!formData.get('numbDL').valid && formData.get('numbDL').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте номер водительского удостоверения!
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Отмена</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+                        <kendo-grid [kendoGridBinding]="UsersList"
+                                    [pageSize]="10"
+                                    [pageable]="true"
+                                    [sortable]="true"
+                                    [filterable]="true"
+                                    [height]="500">
+                            <kendo-grid-column field="lastName"  title="Имя" width="170">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="firstName" title="Фамилия" width="170">
+                            </kendo-grid-column>
+                            <kendo-grid-column field="dob" title="Дата рождения" width="140" filter="date" format="{0:d}">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    {{dataItem.dob | kendoDate: 'd'}}
+                                </ng-template>
+                            </kendo-grid-column>
+                            <kendo-grid-column field="numbDL" title="Номер ВУ" width="100">
+                            </kendo-grid-column>
+                        </kendo-grid>
+<br />
+<p align="center"><button kendoButton [primary]="true" data-toggle="modal" data-target="#exampleModal"><span class="fas fa-user-plus">&nbsp;</span> Добавить</button></p>

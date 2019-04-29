@@ -1,0 +1,59 @@
+<!--<div class='main-nav'>
+  <nav class='navbar navbar-expand-sm navbar-dark bg-dark d-flex flex-column'>
+      <div class="navbar-header p-0">
+          <a class='navbar-brand' [routerLink]='["/"]'>Меню</a>
+          <button type='button' class='navbar-toggler' data-toggle='collapse' data-target='#navbarNav' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+              <span class='sr-only'>Toggle navigation</span>
+              <span class='navbar-toggler-icon'></span>
+          </button>
+          <div id="navbarNav" class='navbar-collapse collapse p-0' [ngClass]='{ "in": isExpanded }'>
+              <ul class='nav navbar-nav flex-column'>
+                  <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                      <a [routerLink]='["/"]' class="nav-link" (click)='collapse()'>
+                          <span class='far fa-file-alt'></span> Заказы
+                      </a>
+                  </li>
+                  <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                      <a [routerLink]='["/user"]' class="nav-link" (click)='collapse()'>
+                          <span class='fas fa-users'></span> Пользователи
+                      </a>
+                  </li>
+                  <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                      <a [routerLink]='["/car"]' class="nav-link" (click)='collapse()'>
+                          <span class='fas fa-car'></span> Авто
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+</div>-->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="border-radius: 0 0 15px 15px; position: relative; left: 0; right: 0; top:0;">
+
+        <a class="navbar-brand" [routerLink]='["/"]' style="color:burlywood"> <span class="fa fa-list"></span> Меню</a>
+        <button type='button' class='navbar-toggler' data-toggle='collapse' data-target='#navbarNav' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+            <span class='sr-only'>Toggle navigation</span>
+            <span class='navbar-toggler-icon'></span>
+        </button>
+
+        <!-- Links -->
+        <div id="navbarNav" class='navbar-collapse collapse p-0' [ngClass]='{ "in": isExpanded }'>
+            <ul class="nav navbar-nav">
+                <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+                    <a [routerLink]='["/"]' class="nav-link" (click)='collapse()'>
+                        <span class='far fa-file-alt'></span> Заказы
+                    </a>
+                </li>
+                <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/user"]' class="nav-link" (click)='collapse()'>
+                        <span class='fas fa-users'></span> Пользователи
+                    </a>
+                </li>
+                <li class="nav-item" [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/car"]' class="nav-link" (click)='collapse()'>
+                        <span class='fas fa-car'></span> Авто
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>

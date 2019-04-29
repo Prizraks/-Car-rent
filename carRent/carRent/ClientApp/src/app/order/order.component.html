@@ -1,0 +1,244 @@
+<br />
+<h3><p align="center"><span class='far fa-file-alt'></span></p></h3>
+<br />
+<!--Modal for add Order-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавление заказа</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" [formGroup]="formData" (ngSubmit)="addOrder()">
+                    <div class="form-group">
+                        <label for="idCar" class="col-sm-4 control-label">Авто:</label>
+                        <select class="form-control" name="idCar"
+                                formControlName="idCar">
+                            <option *ngFor="let data of CarsList" value={{data.id}}>
+                                {{data.brand}}&nbsp;{{data.model}}&nbsp;{{data.numb}}
+                            </option>
+                        </select>
+                        <div *ngIf="!formData.get('idCar').valid && formData.get('idCar').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте авто!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="model" class="col-sm-4 control-label">Пользователь:</label>
+                        <select class="form-control" name="idUser"
+                                formControlName="idUser">
+                            <option *ngFor="let data2 of UsersList" value={{data2.id}}>
+                                {{data2.lastName}}&nbsp;{{data2.firstName}}&nbsp;{{data2.numbDL}}
+                            </option>
+                        </select>
+                        <div *ngIf="!formData.get('idUser').valid && formData.get('idUser').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте пользователя!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateStart" class="col-sm-4 control-label">Дата начала аренды:</label>
+                        <input type="text" placeholder=" Выбирете дату начала" class="form-control" bsDatepicker name="dateStart" formControlName="dateStart" />
+                        <div *ngIf="!formData.get('dateStart').valid && formData.get('dateStart').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте дату начала
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateEnd" class="col-sm-4 control-label">Дата конца аренды::</label>
+                        <input type="text" placeholder=" Выбирете дату конца" class="form-control" bsDatepicker name="dateEnd" formControlName="dateEnd" />
+                        <div *ngIf="!formData.get('dateEnd').valid && formData.get('dateEnd').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте дату конца!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment" class="col-sm-4 control-label"> Номер авто:</label>
+                        <textarea type="text" class="form-control" name="comment" placeholder="Введите комментарий к заказу" formControlName="comment"></textarea>
+                        <div *ngIf="!formData.get('comment').valid && formData.get('comment').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте комментарий!
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Отмена</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Добавить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for view details of Order-->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">Детальная информация:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="brand" class="col-sm-4 control-label">Марка авто:</label>
+                    <input type="text" readonly="readonly" class="form-control" name="brand" id="detBrand" />
+                </div>
+                <div class="form-group">
+                    <label for="model" class="col-sm-4 control-label">Модель авто:</label>
+                    <input type="text" readonly="readonly" class="form-control" name="model" id="detModel" />
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-sm-4 control-label">Имя пользователя:</label>
+                    <input type="text" readonly="readonly" class="form-control" name="firstName" id="detFirstName" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-sm-4 control-label">Фамилия пользователя:</label>
+                    <input type="text" readonly="readonly" class="form-control" name="lastName" id="detLastName" />
+                </div>
+                <div class="form-group">
+                    <label for="dateStart" class="col-sm-4 control-label">Дата начала аренды:</label>
+                    <input type="text" readonly="readonly" class="form-control" name="dateStart" id="detDateStart" />
+                </div>
+                <div class="form-group">
+                    <label for="dateEnd" class="col-sm-4 control-label">Дата конца аренды::</label>
+                    <input type="text" readonly="readonly" class="form-control" name="dateEnd" id="detDateEnd" />
+                </div>
+                <div class="form-group">
+                    <label for="numb" class="col-sm-4 control-label"> Номер авто:</label>
+                    <input type="text" readonly="readonly" class="form-control" name="numb" id="detNumb" />
+                </div>
+                <div class="form-group">
+                    <label for="comment" class="col-sm-4 control-label"> Комментарий:</label>
+                    <textarea type="text" readonly="readonly" class="form-control" name="detComment" id="detComment"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal for edit Order-->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="editModalLabel">Редактирование заказа</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="selectForm">
+                    <input type="text" name="idOrder" id="idOrder" disabled class="form-control" hidden />
+                    <div class="form-group">
+                        <label for="idCarEdit" class="col-sm-4 control-label">Авто:</label>
+                        <select class="form-control" name="idCarEdit" id="idCarEdit">
+                            <option *ngFor="let data of CarsList" value={{data.id}}>
+                                {{data.brand}}&nbsp;{{data.model}}&nbsp;{{data.numb}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="idUserEdit" class="col-sm-4 control-label">Пользователь:</label>
+                        <select class="form-control" name="idUserEdit" id="idUserEdit">
+                            <option *ngFor="let data2 of UsersList" value={{data2.id}}>
+                                {{data2.lastName}}&nbsp;{{data2.firstName}}&nbsp;{{data2.numbDL}}
+                            </option>
+                        </select>
+                    </div>
+                </form>
+                <form class="form-horizontal" [formGroup]="formDataEdit" (ngSubmit)="updOrder()" name="editForm">
+                    <div class="form-group">
+                        <label for="startEdit" class="col-sm-4 control-label">Дата начала аренды:</label>
+                        <input type="text" id="startEdit" placeholder=" Выбирете дату начала" class="form-control" bsDatepicker name="startEdit" formControlName="startEdit" />
+                        <div *ngIf="!formDataEdit.get('startEdit').valid && formDataEdit.get('startEdit').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте дату начала
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endEdit" class="col-sm-4 control-label">Дата конца аренды::</label>
+                        <input type="text" id="endEdit" placeholder=" Выбирете дату конца" class="form-control" bsDatepicker name="endEdit" formControlName="endEdit" />
+                        <div *ngIf="!formDataEdit.get('endEdit').valid && formDataEdit.get('endEdit').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте дату конца!
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="commentEdit" class="col-sm-4 control-label"> Номер авто:</label>
+                        <textarea type="text" id="commentEdit" class="form-control" name="commentEdit" placeholder="Введите комментарий к заказу" formControlName="commentEdit"></textarea>
+                        <div *ngIf="!formDataEdit.get('commentEdit').valid && formDataEdit.get('commentEdit').dirty"
+                             class="col-sm-8 col-sm-offset-4" style="color:red">
+                            Добавьте комментарий!
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Отмена</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!formDataEdit.valid">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--[pageSize]="10"
+            [pageable]="true"
+            [sortable]="true"
+            [filterable]="false"
+            [groupable]="false"
+            [height]="610"
+            filterable="menu"-->
+
+<!--(filterChange)="filterChange($event)"
+            [sortable]="{
+            allowUnsort: allowUnsort,
+            mode: multiple ? 'multiple' : 'single'
+            }"
+          [sort]="sort"
+          (sortChange)="sortChange($event)"-->
+<kendo-grid [kendoGridBinding]="OrdersList"
+            [pageSize]="10"
+            [pageable]="true"
+            [filterable]="true"
+            [sortable]="true"
+            [resizable]="true"
+            [height]="500">
+    <kendo-grid-column field="id" hidden="hidden">
+    </kendo-grid-column>
+    <kendo-grid-column field="firstName" title="Имя" width="160">
+    </kendo-grid-column>
+    <kendo-grid-column field="brand" title="Марка" width="140">
+    </kendo-grid-column>
+    <kendo-grid-column field="model" title="Модель" width="140">
+    </kendo-grid-column>
+    <kendo-grid-column field="dateStart" title="Начало аренды" width="130" filter="date" format="{0:d}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            {{dataItem.dateStart | kendoDate: 'd'}}
+        </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="dateEnd" title="Конец аренды" width="130" filter="date" format="{0:d}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            {{dataItem.dateEnd | kendoDate: 'd'}}
+        </ng-template>
+    </kendo-grid-column>
+
+    <kendo-grid-command-column title="Команды" width="150">
+        <ng-template kendoGridCellTemplate let-dataItem>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#viewModal" (click)="detailsOrder(dataItem.id)"><span class="far fa-address-card"></span></button>
+            &nbsp;
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal" (click)="editOrderModal(dataItem.id)"><span class="fa fa-edit"></span></button>
+            &nbsp;
+            <button type="submit" class="btn btn-danger" (click)="deleteOrder(dataItem.id)"><span class="fas fa-trash-alt"></span></button>
+        </ng-template>
+    </kendo-grid-command-column>
+</kendo-grid>
+<br />
+<button type="button" class="btn-primary" (click)="chek()">CHEK</button>
+<p align="center"><button kendoButton [primary]="true" data-toggle="modal" data-target="#exampleModal"><span class="fas fa-file-alt">&nbsp;</span> Добавить</button></p>
